@@ -9,15 +9,15 @@ jobs:
       - checkout
       - restore_cache:
         key: dependency-cache-live-{{ checksum "package.json"}}
-        - run: yarn
-        - save_cache:
-          key: dependecy-cache-live={{ checksum "package.json" }}
-          paths:
-            - ./node_modules
-            - ./.next/cache
-        - run: yarn test-coverage
-        - codecov/upload:
-          file: './coverage/clover.xml'
+      - run: yarn
+      - save_cache:
+        key: dependecy-cache-live={{ checksum "package.json" }}
+        paths:
+          - ./node_modules
+          - ./.next/cache
+      - run: yarn test-coverage
+      - codecov/upload:
+        file: './coverage/clover.xml'
 
 workflows:
   test-application:
