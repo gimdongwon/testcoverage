@@ -1,3 +1,5 @@
+
+
 const apiCall = async (carId) => {
     const apiUrl = `https://api.encar.com/v1/readside/clean-encar/vehicle/${carId}`;
     const result = await fetch(apiUrl).then(res=> res.ok);
