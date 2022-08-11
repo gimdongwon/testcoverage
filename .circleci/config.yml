@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  codecov: codecov/codecov@3.0.0
+  codecov: codecov/codecov@1.0.2
 jobs:
   test-and-check-coverage:
     docker:
@@ -8,31 +8,18 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        key: dependency-cache-live-{{ checksum "package.json"}}
+          key: dependency-cache-live-{{ checksum "package.json"}}
       - run: yarn
       - save_cache:
-        key: dependecy-cache-live={{ checksum "package.json" }}
-        paths:
-          - ./node_modules
-          - ./.next/cache
+          key: dependecy-cache-live={{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+            - ./.next/cache
       - run: yarn test-coverage
       - codecov/upload:
-        file: './coverage/clover.xml'
+          file: './coverage/clover.xml'
 
 workflows:
   test-application:
     jobs:
       - test-and-check-coverage
-jobs:
-  example-job:
-    docker:
-      # replace with your preferred image
-      - image: cimg/base:stable
-    steps:
-      - codecov/upload:
-          token: '957e74c6-4805-4ef0-b377-c961d2e21f63' 
-
-workflows:
-  example-workflow:
-    jobs:
-      - example-job
