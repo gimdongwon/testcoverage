@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  codecov: codecov/codecov@1.0.2
+  codecov: codecov/codecov@3.0.0
 jobs:
   test-and-check-coverage:
     docker:
@@ -23,3 +23,16 @@ workflows:
   test-application:
     jobs:
       - test-and-check-coverage
+jobs:
+  example-job:
+    docker:
+      # replace with your preferred image
+      - image: cimg/base:stable
+    steps:
+      - codecov/upload:
+          token: '957e74c6-4805-4ef0-b377-c961d2e21f63' 
+
+workflows:
+  example-workflow:
+    jobs:
+      - example-job
